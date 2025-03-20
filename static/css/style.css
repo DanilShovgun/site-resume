@@ -1,0 +1,113 @@
+body {
+    font-family: 'Roboto', sans-serif; /* Пример современного шрифта */
+    margin: 0;
+    padding: 0;
+    background-color: #f8f8f8; /* Более светлый фон */
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 900px; /* Увеличил ширину */
+    margin: 40px auto; /* Увеличил отступы */
+    padding: 30px;
+    background-color: #fff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Более мягкая тень */
+    border-radius: 8px; /* Скругленные углы */
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.profile-photo {
+    width: 180px; /* Увеличил размер фото */
+    height: 180px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Тень для фото */
+}
+
+h1, h2, h3, h4 {
+    color: #2c3e50; /* Более темный цвет заголовков */
+    font-weight: 600;
+}
+
+h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    margin-bottom: 15px;
+}
+
+h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+h4 {
+    font-size: 1.2em;
+    margin-bottom: 5px;
+}
+
+.contacts ul, .skills ul, .experience ul, .education ul {
+    list-style: none;
+    padding: 0;
+}
+
+.contacts li, .skills li, .experience li, .education li {
+    margin-bottom: 8px;
+}
+
+.duration {
+    font-style: italic;
+    color: #777;
+}
+
+.experience-item, .education-item {
+    margin-bottom: 30px;
+    border-bottom: 1px solid #eee; /* Разделитель между пунктами */
+    padding-bottom: 20px;
+}
+
+.experience-item:last-child, .education-item:last-child {
+    border-bottom: none; /* Убираем разделитель у последнего элемента */
+}
+
+a {
+    color: #3498db; /* Более яркий цвет ссылок */
+    text-decoration: none;
+    transition: color 0.3s ease; /* Плавное изменение цвета при наведении */
+}
+
+a:hover {
+    text-decoration: underline;
+    color: #2980b9; /* Более темный цвет при наведении */
+}
+
+/* Стили для подвала */
+footer {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+    color: #777;
+}
+
+/* Адаптивный дизайн */
+@media (max-width: 768px) {
+    .container {
+        margin: 20px;
+        padding: 20px;
+    }
+
+    .profile-photo {
+        width: 150px;
+        height: 150px;
+    }
+}

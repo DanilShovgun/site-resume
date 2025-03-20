@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Резюме - {{ data.name }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <img src="{{ url_for('static', filename='img/portfolio_img.jpg') }}" alt="Фото профиля" class="profile-photo">
+            <h1>{{ data.name }}</h1>
+            <h2>{{ data.position }}</h2>
+            <p>{{ data.about }}</p>
+        </header>
+        <main>
+            <section class="contacts">
+                <h3>Контакты</h3>
+                <ul>
+                    <li>Email: <a href="mailto:{{ data.contacts.email }}">{{ data.contacts.email }}</a></li>
+                    <li>Телефон: {{ data.contacts.phone }}</li>
+                    <li>Telegram : {{data.contacts.telegram}}</li>
+                    <li><a href="{{ data.contacts.replit }}" target="_blank">Replit</a></li>
+                    <li><a href="{{ data.contacts.github }}" target="_blank">GitHub</a></li>
+                </ul>
+            </section>
+
+            <section class="skills">
+                <h3>Навыки</h3>
+                {% for category, skills in data.skills.items() %}
+                <h4>{{ category }}</h4>
+                <ul>
+                    {% for skill in skills %}
+                    <li>{{ skill }}</li>
+                    {% endfor %}
+                </ul>
+                {% endfor %}
+            </section>
+
+            <section class="experience">
+                <h3>Опыт работы</h3>
+                {% for exp in data.experience %}
+                <article class="experience-item">
+                    <h4>{{ exp.company }} - {{ exp.position }}</h4>
+                    <p class="duration">{{ exp.duration }}</p>
+                    <ul>
+                        {% for item in exp.description %}
+                        <li>{{ item }}</li>
+                        {% endfor %}
+                    </ul>
+                </article>
+                {% endfor %}
+            </section>
+
+            <section class="education">
+                <h3>Образование</h3>
+                {% for edu in data.education %}
+                <article class="education-item">
+                    <h4>{{ edu.university }}</h4>
+                    <p class="duration">{{ edu.duration }}</p>
+                    <p>{{ edu.degree }}</p>
+                    {% if edu.description %}
+                    <p>{{ edu.description }}</p>
+                    {% endif %}
+                </article>
+                {% endfor %}
+            </section>
+        </main>
+        <footer>
+            <p>&copy; 2025 Шовгун Данил. <a href="{{ data.contacts.github }}" target="_blank">GitHub</a></p>
+        </footer>
+    </div>
+</body>
+</html>
