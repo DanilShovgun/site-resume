@@ -3,73 +3,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Резюме Python-разработчика {{ data.name }}">
     <title>Резюме - {{ data.name }}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <img src="{{ url_for('static', filename='img/portfolio_img.jpg') }}" alt="Фото профиля" class="profile-photo">
-            <h1>{{ data.name }}</h1>
-            <h2>{{ data.position }}</h2>
-            <p>{{ data.about }}</p>
-        </header>
-        <main>
-            <section class="contacts">
+    <header class="site-header">
+        <nav class="main-nav">
+            <ul>
+                <li><a href="#about">Обо мне</a></li>
+                <li><a href="#skills">Навыки</a></li>
+                <li><a href="#experience">Опыт</a></li>
+                <li><a href="#education">Образование</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <article class="profile-section" id="about">
+            <div class="profile-header">
+                <figure class="profile-photo-container">
+                    <img src="{{ url_for('static', filename='img/portfolio_img.jpg') }}" alt="Фото {{ data.name }}" class="profile-photo">
+                </figure>
+                <div class="profile-info">
+                    <h1 class="profile-name">{{ data.name }}</h1>
+                    <h2 class="profile-position">{{ data.position }}</h2>
+                    <p class="profile-bio">{{ data.about }}</p>
+                </div>
+            </div>
+
+            <aside class="contact-info" id="contacts">
                 <h3>Контакты</h3>
-                <ul>
-                    <li>Email: <a href="mailto:{{ data.contacts.email }}">{{ data.contacts.email }}</a></li>
-                    <li>Телефон: {{ data.contacts.phone }}</li>
-                    <li>Telegram : {{data.contacts.telegram}}</li>
-                    <li><a href="{{ data.contacts.replit }}" target="_blank">Replit</a></li>
-                    <li><a href="{{ data.contacts.github }}" target="_blank">GitHub</a></li>
+                <ul class="contact-list">
+                    <li><strong>Email:</strong> <a href="mailto:{{ data.contacts.email }}">{{ data.contacts.email }}</a></li>
+                    <li><strong>Телефон:</strong> <a href="tel:{{ data.contacts.phone }}">{{ data.contacts.phone }}</a></li>
+                    <li><strong>Telegram:</strong> <a href="https://t.me/{{ data.contacts.telegram.replace('@', '') }}">{{ data.contacts.telegram }}</a></li>
+                    {% if data.contacts.github %}
+                    <li><strong>GitHub:</strong> <a href="{{ data.contacts.github }}" target="_blank" rel="noopener">Профиль GitHub</a></li>
+                    {% endif %}
+                    {% if data.contacts.replit %}
+                    <li><strong>Replit:</strong> <a href="{{ data.contacts.replit}}" target="_blank" rel="noopener">Профиль Replit</a></li>
+                    {% endif %}
                 </ul>
-            </section>
+            </aside>
+        </article>
 
-            <section class="skills">
-                <h3>Навыки</h3>
+        <section class="skills-section" id="skills">
+            <h3>Профессиональные навыки</h3>
+            <div class="skills-grid">
                 {% for category, skills in data.skills.items() %}
-                <h4>{{ category }}</h4>
-                <ul>
-                    {% for skill in skills %}
-                    <li>{{ skill }}</li>
-                    {% endfor %}
-                </ul>
+                <div class="skill-category">
+                    <h4>{{ category }}</h4>
+                    <ul class="skills-list">
+                        {% for skill in skills %}
+                        <li class="skill-item">{{ skill }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
                 {% endfor %}
-            </section>
+            </div>
+        </section>
 
-            <section class="experience">
-                <h3>Опыт работы</h3>
+        <section class="experience-section" id="experience">
+            <h3>Опыт работы</h3>
+            <div class="timeline">
                 {% for exp in data.experience %}
-                <article class="experience-item">
-                    <h4>{{ exp.company }} - {{ exp.position }}</h4>
-                    <p class="duration">{{ exp.duration }}</p>
-                    <ul>
+                <article class="timeline-item">
+                    <header class="timeline-header">
+                        <h4>{{ exp.position }}</h4>
+                        <p class="company-name">{{ exp.company }}</p>
+                        <time class="timeline-date">{{ exp.duration }}</time>
+                    </header>
+                    <ul class="achievement-list">
                         {% for item in exp.description %}
                         <li>{{ item }}</li>
                         {% endfor %}
                     </ul>
                 </article>
                 {% endfor %}
-            </section>
+            </div>
+        </section>
 
-            <section class="education">
-                <h3>Образование</h3>
-                {% for edu in data.education %}
-                <article class="education-item">
+        <section class="education-section" id="education">
+            <h3>Образование</h3>
+            {% for edu in data.education %}
+            <article class="education-item">
+                <header>
                     <h4>{{ edu.university }}</h4>
-                    <p class="duration">{{ edu.duration }}</p>
-                    <p>{{ edu.degree }}</p>
-                    {% if edu.description %}
-                    <p>{{ edu.description }}</p>
-                    {% endif %}
-                </article>
-                {% endfor %}
-            </section>
-        </main>
-        <footer>
-            <p>&copy; 2025 Шовгун Данил. <a href="{{ data.contacts.github }}" target="_blank">GitHub</a></p>
-        </footer>
-    </div>
+                    <time class="education-date">{{ edu.duration }}</time>
+                </header>
+                <p class="degree">{{ edu.degree }}</p>
+                {% if edu.description %}
+                <p class="education-description">{{ edu.description }}</p>
+                {% endif %}
+            </article>
+            {% endfor %}
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; {{ current_year }} {{ data.name }}. Все права защищены.</p>
+        <nav class="footer-nav">
+            <a href="{{ data.contacts.github }}" target="_blank" rel="noopener">GitHub</a>
+        </nav>
+    </footer>
 </body>
 </html>
